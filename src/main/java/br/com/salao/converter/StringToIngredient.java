@@ -8,7 +8,8 @@ import br.com.salao.entity.Ingredient;
 @Component
 public final class StringToIngredient implements Converter<String, Ingredient>{
 	@Override
-	public Ingredient convert(String id) {			
+	public Ingredient convert(String id) {	
+		System.out.println("sdfdsfsdf");
 		Long ingredient_id = Long.parseLong(id);
 		return new Ingredient(ingredient_id, null, null, null);
 	}
