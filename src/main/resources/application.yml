@@ -13,7 +13,7 @@ spring:  profiles:    active:    - dev
 #    - user-schema.sql
 #    data:
 #    - ingredients.sql
----spring:  profiles: dev     
+---spring:  profiles: dev  data:    rest:      base-path: /api     
 taco:
   orders:    pageSize: 7        
 logging:  level:    br: DEBUG                       ---spring:  profiles: qa     taco:  orders:    pageSize: 7        logging:  level:    br: DEBUG              

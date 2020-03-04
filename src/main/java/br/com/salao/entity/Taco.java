@@ -19,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
+//@RestResource(rel="tacos", path="tacos")
 public class Taco {
 	
 	@Id

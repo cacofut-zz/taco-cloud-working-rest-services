@@ -1,6 +1,5 @@
 package br.com.salao.api;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,45 +26,39 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.salao.entity.Ingredient;
 import br.com.salao.entity.Taco;
 import br.com.salao.repository.TacoRepositorySpringData;
-import br.com.salao.resource.TacoResource;
-import br.com.salao.resource.TacoResourceMapper;
+import br.com.salao.resource.TacoModel;
+import br.com.salao.resource.TacoModelAssembler;
 
 @RestController
 @RequestMapping(path = "/api/design", produces = "application/json")
 @CrossOrigin(origins = "*")
-public class DesignTacoControllerAPI {
+public class DesignTacoControllerRest {
 	
 	private TacoRepositorySpringData tacoRepo;
 	
-
+	private TacoModelAssembler tacoAssembler;
+	
 	@Autowired
-	public DesignTacoControllerAPI(TacoRepositorySpringData tacoRepo) {	
+	public DesignTacoControllerRest(TacoRepositorySpringData tacoRepo, TacoModelAssembler tacoAssembler) {	
 		this.tacoRepo = tacoRepo;
+		this.tacoAssembler = tacoAssembler;
 	}
 	
 	@GetMapping("/recent")
-	public Collection<TacoResource> recentTacos(){
-		PageRequest page = PageRequest.of(0, 12, Sort.by("createdAt").descending());
-		Iterable<Taco> tacos = tacoRepo.findAll(page);
-		Collection<TacoResource> resources = TacoResourceMapper.toResourceColletion(tacos);
-		return resources;
+	public CollectionModel<TacoModel> recentTacos(){
+		PageRequest page = PageRequest.of(0, 12, Sort.by("createdAt").descending());		
+		return tacoAssembler.toCollectionModel(tacoRepo.findAll(page));
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<TacoResource> tacoById(@PathVariable("id") Long id) {
-		Optional<Taco> taco_opcional = tacoRepo.findById(id);
-		if(taco_opcional.isPresent()) {
-			Taco taco = taco_opcional.get();
-			TacoResource resource = TacoResourceMapper.toResource(taco);
-									
-			return new ResponseEntity<>(resource, HttpStatus.OK);
-		}
-		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+	public ResponseEntity<TacoModel> tacoById(@PathVariable("id") Long id) {
+		return tacoRepo.findById(id)
+			.map(tacoAssembler::toModel)
+			.map(ResponseEntity::ok)
+			.orElse(ResponseEntity.notFound().build());			
 	}
 	
-	
-	
-	
+		
 	@PostMapping(consumes="application/json")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Taco postTaco(@RequestBody Taco taco) {
