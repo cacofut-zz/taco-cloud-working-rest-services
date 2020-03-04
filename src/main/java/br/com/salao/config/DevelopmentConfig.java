@@ -133,7 +133,9 @@ public class DevelopmentConfig {
 				
 				
 				Taco t1 = new Taco("t1 dfdfsd", new Date(), ingredients);
+				Taco t2 = new Taco("Solo taco", new Date(), ingredients);
 				tacoRepo.save(t1);
+				tacoRepo.save(t2);
 				
 				Order or1 = new Order();
 				or1.setName("novo order 1");
