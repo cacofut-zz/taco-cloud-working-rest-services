@@ -8,26 +8,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force=true)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Ingredient {
-	
-	
+		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private final Long id;
+	private Long id;
 	
-	private final String codigo;
-	private final String name;
+	private String codigo;
+	private String name;
 	
 	@Enumerated(EnumType.STRING)
-	private final Type type;
+	private Type type;
 
 	public static enum Type{
 		WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
