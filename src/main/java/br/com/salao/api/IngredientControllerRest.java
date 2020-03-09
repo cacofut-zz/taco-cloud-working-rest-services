@@ -1,7 +1,10 @@
 package br.com.salao.api;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,19 +34,38 @@ public class IngredientControllerRest {
 		this.ingredientAssembler = ingredientAssembler;
 	}
 	
+	/*
 	@GetMapping
 	public ResponseEntity<CollectionModel<IngredientModel>> allIngredients(){		
-		Iterable<Ingredient> ingredients = ingredientRepo.findAll();
+		Iterable<Ingredient> ingredients = ingredientRepo.findAll();		
 		return new ResponseEntity<>(ingredientAssembler.toCollectionModel(ingredients), HttpStatus.OK);		
-	}
+	}*/
 	
-	/*@GetMapping
+	
+	@GetMapping
 	public ResponseEntity<List<Ingredient>> allIngredients(){		
 		Iterable<Ingredient> ingredients = ingredientRepo.findAll();
 		List<Ingredient> teste = new ArrayList<>();
 		ingredients.forEach(teste::add);		
 		return new ResponseEntity<>(teste, HttpStatus.OK);		
-	}*/ 
+	}
+	
+	
+	/*
+	@GetMapping 
+	public ResponseEntity<CollectionModelList> allIngredients(){		
+		Iterable<Ingredient> ingredients = ingredientRepo.findAll();
+		CollectionModelList colection = new CollectionModelList();
+		colection.setIngredients(ingredientAssembler.toCollectionModel(ingredients));
+		return new ResponseEntity<>(colection, HttpStatus.OK);		
+	}*/
+	
+	
+	/*@GetMapping 
+	public ResponseEntity<CollectionModel<IngredientModel>> allIngredients(){		
+		Iterable<Ingredient> ingredients = ingredientRepo.findAll();		
+		return new ResponseEntity<>(ingredientAssembler.toCollectionModel(ingredients), HttpStatus.OK);		
+	}*/
 	
 	@GetMapping("{id}")	
 	public ResponseEntity<IngredientModel> ingredientById(@PathVariable Long id){		

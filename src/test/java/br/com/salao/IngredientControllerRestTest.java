@@ -2,12 +2,17 @@ package br.com.salao;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.salao.entity.Ingredient;
+import br.com.salao.resource.CollectionModelList;
 import br.com.salao.resource.IngredientModel;
 
 
@@ -32,15 +37,23 @@ class IngredientControllerRestTest {
 	
 	@Test
 	void test_ingredients_api() {
+		/*final String baseUrl = "http://localhost:8080/api/ingredient";
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<Ingredient[]> response = restTemplate.getForEntity(baseUrl, Ingredient[].class);
+		
+		List<Ingredient> ingredientsList = Arrays.asList(response.getBody());
+		ingredientsList.forEach( System.out::println);
+		assertNotNull(ingredientsList);*/
+		
+		
 		final String baseUrl = "http://localhost:8080/api/ingredient";
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Ingredient[]> ingredients = restTemplate.getForEntity(baseUrl, Ingredient[].class);
+		ResponseEntity<CollectionModelList> response = restTemplate.getForEntity(baseUrl, CollectionModelList.class);
 		
-		System.out.println(ingredients.getBody());
-		for (Ingredient t : ingredients.getBody()) {
-			System.out.println(t);
-		}
-		assertNotNull(ingredients.getBody());
+		CollectionModelList ingredientsList = response.getBody();
+		ingredientsList.getIngredients().forEach( e -> System.out.println(e));
+		
+		assertNotNull(ingredientsList);
 	}
 
 }
