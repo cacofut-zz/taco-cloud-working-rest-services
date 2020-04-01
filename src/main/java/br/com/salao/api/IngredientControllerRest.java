@@ -1,12 +1,11 @@
 package br.com.salao.api;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.salao.entity.Ingredient;
 import br.com.salao.repository.IngredientRepositorySpringData;
+import br.com.salao.resource.IngredientModel;
 import br.com.salao.resource.IngredientModelAssembler;
 
 @RestController
@@ -40,19 +40,20 @@ public class IngredientControllerRest {
 		this.ingredientAssembler = ingredientAssembler;
 	}
 	
-	/*@GetMapping
+	@GetMapping
 	public ResponseEntity<CollectionModel<IngredientModel>> allIngredients(){		
 		Iterable<Ingredient> ingredients = ingredientRepo.findAll();
 		return new ResponseEntity<>(ingredientAssembler.toCollectionModel(ingredients), HttpStatus.OK);		
-	}*/
+	}
 	
+	/*
 	@GetMapping
 	public ResponseEntity<List<Ingredient>> allIngredients(){		
 		Iterable<Ingredient> ingredients = ingredientRepo.findAll();
 		List<Ingredient> teste = new ArrayList<>();
 		ingredients.forEach(teste::add);		
 		return new ResponseEntity<>(teste, HttpStatus.OK);		
-	} 
+	} */
 	
 	
 	@GetMapping("{id}")	

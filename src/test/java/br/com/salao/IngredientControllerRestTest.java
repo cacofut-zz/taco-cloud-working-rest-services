@@ -17,6 +17,7 @@ class IngredientControllerRestTest {
 	@LocalServerPort
 	int randomServerPort;
 	
+	
 	@Test
 	void test_ingredients_api_by_id() {
 		final String baseUrl = "http://localhost:8080/api/ingredient/{id}";
