@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.salao.entity.Ingredient;
+import br.com.salao.resource.CollectionModelList;
+
 
 
 
@@ -32,15 +34,26 @@ class IngredientControllerRestTest {
 	
 	@Test
 	void test_ingredients_api() {
+		/*final String baseUrl = "http://localhost:8080/api/ingredient";
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<Ingredient[]> response = restTemplate.getForEntity(baseUrl, Ingredient[].class);
+		
+		List<Ingredient> ingredientsList = Arrays.asList(response.getBody());
+		ingredientsList.forEach( System.out::println);
+		assertNotNull(ingredientsList);*/
+		
+		
 		final String baseUrl = "http://localhost:8080/api/ingredient";
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Ingredient[]> ingredients = restTemplate.getForEntity(baseUrl, Ingredient[].class);
+		ResponseEntity<CollectionModelList> response = restTemplate.getForEntity(baseUrl, CollectionModelList.class);
 		
+		CollectionModelList ingredientsList = response.getBody();
+		ingredientsList.getIngredients().forEach( e -> System.out.println(e));
 		
-		for (Ingredient t : ingredients.getBody()) {
-			System.out.println(t);
-		}
-		assertNotNull(ingredients.getBody());
+
+		assertNotNull(ingredientsList);
+
+
 	}
 	
 	@Test

@@ -40,20 +40,51 @@ public class IngredientControllerRest {
 		this.ingredientAssembler = ingredientAssembler;
 	}
 	
+<<<<<<< HEAD
 	@GetMapping
+=======
+	/*
+	/*@GetMapping
+>>>>>>> 5aecc4d404b778ce455e9b07da3c5fc2ceff992b
 	public ResponseEntity<CollectionModel<IngredientModel>> allIngredients(){		
-		Iterable<Ingredient> ingredients = ingredientRepo.findAll();
+		Iterable<Ingredient> ingredients = ingredientRepo.findAll();		
 		return new ResponseEntity<>(ingredientAssembler.toCollectionModel(ingredients), HttpStatus.OK);		
 	}
 	
+<<<<<<< HEAD
 	/*
+=======
+
+>>>>>>> 5aecc4d404b778ce455e9b07da3c5fc2ceff992b
 	@GetMapping
 	public ResponseEntity<List<Ingredient>> allIngredients(){		
 		Iterable<Ingredient> ingredients = ingredientRepo.findAll();
 		List<Ingredient> teste = new ArrayList<>();
 		ingredients.forEach(teste::add);		
 		return new ResponseEntity<>(teste, HttpStatus.OK);		
+<<<<<<< HEAD
 	} */
+=======
+
+	}
+	
+	
+	/*
+	@GetMapping 
+	public ResponseEntity<CollectionModelList> allIngredients(){		
+		Iterable<Ingredient> ingredients = ingredientRepo.findAll();
+		CollectionModelList colection = new CollectionModelList();
+		colection.setIngredients(ingredientAssembler.toCollectionModel(ingredients));
+		return new ResponseEntity<>(colection, HttpStatus.OK);		
+	}*/
+	
+	
+	/*@GetMapping 
+	public ResponseEntity<CollectionModel<IngredientModel>> allIngredients(){		
+		Iterable<Ingredient> ingredients = ingredientRepo.findAll();		
+		return new ResponseEntity<>(ingredientAssembler.toCollectionModel(ingredients), HttpStatus.OK);		
+	}*/
+>>>>>>> 5aecc4d404b778ce455e9b07da3c5fc2ceff992b
 	
 	
 	@GetMapping("{id}")	

@@ -49,7 +49,7 @@ public class DesignTacoControllerRest {
 		PageRequest page = PageRequest.of(0, 12, Sort.by("createdAt").descending());		
 		return tacoAssembler.toCollectionModel(tacoRepo.findAll(page));
 	}
-	
+		
 	@GetMapping("/{id}")
 	public ResponseEntity<TacoModel> tacoById(@PathVariable("id") Long id) {
 		return tacoRepo.findById(id)
@@ -57,6 +57,15 @@ public class DesignTacoControllerRest {
 			.map(ResponseEntity::ok)
 			.orElse(ResponseEntity.notFound().build());			
 	}
+	
+	
+	/*
+	@GetMapping("/{id}")
+	public ResponseEntity<Taco> tacoById(@PathVariable("id") Long id) {
+		return tacoRepo.findById(id)			
+			.map(ResponseEntity::ok)
+			.orElse(ResponseEntity.notFound().build());			
+	}*/
 	
 		
 	@PostMapping(consumes="application/json")
